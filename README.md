@@ -9,7 +9,7 @@ This repository contains the **CAMS / CFP research document only**. It does not 
 
 - [`Causal-Anchored Metacognitive Society, CAMS.md`](<Causal-Anchored Metacognitive Society, CAMS.md>) — the complete scheme:
   - `x·1=y → y·n=z → z·n=脑`: three-layer convergent functional partitioning;
-  - H1–H4: evidence fingerprint, structural `⊥`, precision-only top-down, provenance;
+  - H1–H4: evidence fingerprint with non-symbol leaf, always-on covariance (not discrete abstention), precision-only top-down, provenance;
   - F1′–F8′ falsification conditions against budget-matched baselines;
   - a 10⁴–10⁵ minimal experiment with evidence weakening, top-down temptation, and delayed evidence.
 
@@ -17,7 +17,7 @@ This repository contains the **CAMS / CFP research document only**. It does not 
 
 ## Status
 
-**CAMS / CFP** — documentation-level state. The document reports its own iteration state (Round 10 forced rewrite), Pareto archive, F6 score, and unresolved hallucination leak paths. These are design-level bookkeeping, not experimental evidence.
+**CAMS / CFP v4.1** — documentation-level state after the Round 1–20 fracture-repair rewrite. The document reports its own iteration state, Pareto archive, F6 score, fracture-repair status table, and unresolved hallucination leak paths. These are design-level bookkeeping, not experimental evidence.
 
 ## Scope
 

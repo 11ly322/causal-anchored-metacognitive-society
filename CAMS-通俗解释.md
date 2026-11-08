@@ -3,6 +3,8 @@
 > 这份文件用尽量少的术语，解释 **CAMS / CFP** 到底在主张什么、怎么运转、怎么判断它是不是在“装懂”。
 >
 > 完整方案在主文档：[`Causal-Anchored Metacognitive Society, CAMS.md`](<Causal-Anchored Metacognitive Society, CAMS.md>)。
+>
+> **v4.1 断层修复注**：本文中仍出现的“`⊥` 输出/`⊥` 开关/必须走 `⊥`”是旧表述；按 v4.1 一律读作“协方差超过阈值的事后标记”，不是离散弃权。每层始终输出 `(μ,Σ)`；符号接地、`A-skeleton` 消融、`Σ+ΔΣ` 校准见主文档 §4.4。
 
 ---
 
