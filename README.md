@@ -1,25 +1,29 @@
-# CAMS / PRISM
+# CAMS / CFP
 
 **Causal-Anchored Metacognitive Society**  
-*Predictive, Routed, Inhibitory, Sparse, Metacognitive*
+*Convergent Functional Partitioning*
 
-This repository contains the **CAMS / PRISM research document only**. It does not contain an implementation, demo, model weights, run data, or executable code.
+This repository contains the **CAMS / CFP research document only**. It does not contain an implementation, demo, model weights, run data, or executable code.
 
 ## Document
 
 - [`Causal-Anchored Metacognitive Society, CAMS.md`](<Causal-Anchored Metacognitive Society, CAMS.md>) — the complete scheme:
-  - nine-field operational definition of understanding;
-  - hierarchical predictive generators, localist sparse routing, covariance gating;
+  - `x·1=y → y·n=z → z·n=脑`: three-layer convergent functional partitioning;
+  - H1–H4: evidence fingerprint, structural `⊥`, precision-only top-down, provenance;
   - F1′–F8′ falsification conditions against budget-matched baselines;
-  - 10⁴–10⁵ minimal experiment and deployment boundary.
+  - a 10⁴–10⁵ minimal experiment with evidence weakening, top-down temptation, and delayed evidence.
+
+- [`CAMS-通俗解释.md`](CAMS-通俗解释.md) — a plain-language explanation for non-specialists.
 
 ## Status
 
-**CAMS / PRISM** — documentation-level state. The document reports its own iteration state (Round 400 early stop), Pareto archive, and unresolved failure hashes. These are design-level bookkeeping, not experimental evidence.
+**CAMS / CFP** — documentation-level state. The document reports its own iteration state (Round 10 forced rewrite), Pareto archive, F6 score, and unresolved hallucination leak paths. These are design-level bookkeeping, not experimental evidence.
 
 ## Scope
 
-This is a research proposal, not a policy recommendation system. It does not claim that machine understanding has been achieved, and it does not replace the 10⁴–10⁵ experiment described in the document. No model weights or implementation are distributed here.
+This is a research proposal, not a policy recommendation system. It does not claim that machine understanding has been achieved, and it does not replace the 10⁴–10⁵ experiment described in the document.
+
+The anti-hallucination claims are **structural**: H1–H4 close specific generation paths. They do not make hallucination impossible in an absolute sense; sensor lies, true-evidence-wrong-inference, minority-evidence averaging, precision-selection bias, and out-of-distribution thresholds remain open leak paths (see the document's final section).
 
 ## License
 
@@ -29,4 +33,4 @@ The document is released under the **MIT License**; see [`LICENSE`](LICENSE).
 
 If you use this document, cite it as:
 
-> CAMS contributors. *Causal-Anchored Metacognitive Society (CAMS) / PRISM: a falsifiable scheme for machine understanding of political and social causal structure.* 2026.
+> CAMS contributors. *Causal-Anchored Metacognitive Society (CAMS) / CFP: convergent functional partitioning with structural anti-hallucination constraints.* 2026.
