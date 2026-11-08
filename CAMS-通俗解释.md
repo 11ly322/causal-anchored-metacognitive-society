@@ -1,5 +1,7 @@
 # CAMS / CFP 最通俗解释
 
+> **v5.0 状态**：本文保留 v4.2 的通俗说明；v5.0 只改证据强度、结构、可执行性，不改变三层收敛与 H1–H4 的核心思想。v5.0 的判据与 10³ 协议见 `docs/FALSIFICATION.md` 与 `docs/EXPERIMENT-10K.md`；当前没有实测数据。
+
 > 这份文件用尽量少的术语，解释 **CAMS / CFP** 到底在主张什么、怎么运转、怎么判断它是不是在“装懂”。
 >
 > 完整方案在主文档：[`Causal-Anchored Metacognitive Society, CAMS.md`](<Causal-Anchored Metacognitive Society, CAMS.md>)。
