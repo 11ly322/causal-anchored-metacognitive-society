@@ -1,0 +1,7 @@
+{
+  "id": "BAD-002",
+  "name": "missing_provenance",
+  "why_bad": "A claim has no support ids but is still emitted as determined.",
+  "expected_failure": "INSUFFICIENT_EVIDENCE",
+  "verdict": {"determined": true, "answer": "safe", "reason_code": "NO_RISK", "coverage": 1.0}
+}

@@ -1,0 +1,7 @@
+{
+  "id": "BAD-003",
+  "name": "wrong_scope",
+  "why_bad": "An out-of-distribution receipt is used for an in-scope claim without a scope marker.",
+  "expected_failure": "OUT_OF_SCOPE",
+  "verdict": {"determined": true, "answer": "42", "reason_code": "NO_RISK", "coverage": 1.0}
+}

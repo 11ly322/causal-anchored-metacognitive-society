@@ -1,0 +1,38 @@
+{
+  "id": "T055",
+  "category": "precision_bias",
+  "split": "test",
+  "prompt": "Synthetic audit task 055: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "tool",
+      "status": "ok",
+      "payload": "{\"task\": \"055\", \"category\": \"precision_bias\", \"value\": 55}",
+      "checksum": "sha256:32bff2442184b3e603fd26c426ec9f1ff90903de9260807b66b498ad29e4d776",
+      "valid": true,
+      "scope": "in",
+      "non_text": true
+    }
+  ],
+  "candidate": {
+    "answer": "wrong-precision_bias-055",
+    "confidence": 0.9,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "wrong-precision_bias-055",
+        "supports": [
+          "r1"
+        ],
+        "relation": "selection_bias",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-precision_bias-055",
+    "expected": "abstain"
+  },
+  "checker": "precision_bias"
+}

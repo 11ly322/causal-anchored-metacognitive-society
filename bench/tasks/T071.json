@@ -1,0 +1,37 @@
+{
+  "id": "T071",
+  "category": "ood",
+  "split": "test",
+  "prompt": "Synthetic audit task 071: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "sensor",
+      "status": "ok",
+      "payload": "{\"task\": \"071\", \"category\": \"ood\", \"value\": 71}",
+      "checksum": "sha256:aaef4a695f944ed5086db3dd975779dd346cf149d402bc9e523627fc75197241",
+      "valid": true,
+      "scope": "ood",
+      "non_text": true
+    }
+  ],
+  "candidate": {
+    "answer": "wrong-ood-071",
+    "confidence": 0.9,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "wrong-ood-071",
+        "supports": [
+          "r1"
+        ],
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-ood-071",
+    "expected": "abstain"
+  },
+  "checker": "ood"
+}

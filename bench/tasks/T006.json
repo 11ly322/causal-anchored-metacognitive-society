@@ -1,0 +1,37 @@
+{
+  "id": "T006",
+  "category": "sensor_lie",
+  "split": "dev",
+  "prompt": "Synthetic audit task 006: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "sensor",
+      "status": "error",
+      "payload": "{\"task\": \"006\", \"category\": \"sensor_lie\", \"value\": 6}",
+      "checksum": "sha256:0914f4411fd7d7f6403b6d57418fbb590fc3339d72c6141b398797bd0ea517f1",
+      "valid": false,
+      "scope": "in",
+      "non_text": false
+    }
+  ],
+  "candidate": {
+    "answer": "wrong-sensor_lie-006",
+    "confidence": 0.9,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "wrong-sensor_lie-006",
+        "supports": [
+          "r1"
+        ],
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-sensor_lie-006",
+    "expected": "abstain"
+  },
+  "checker": "sensor_lie"
+}

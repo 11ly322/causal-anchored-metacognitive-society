@@ -1,0 +1,7 @@
+{
+  "id": "BAD-005",
+  "name": "high_covariance_determined",
+  "why_bad": "A claim with covariance above tau_cov is determined without a short correction or refusal.",
+  "expected_failure": "MEASUREMENT_FAILURE",
+  "verdict": {"determined": true, "answer": "42", "reason_code": "NO_RISK", "coverage": 1.0, "covariance": 0.95}
+}

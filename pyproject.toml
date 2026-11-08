@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cams-lite"
+version = "0.1.0"
+description = "A small, model-agnostic audit layer for agent evidence"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "CAMS contributors" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5"]
+
+[tool.setuptools.packages.find]
+include = ["cams_lite*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "bench/tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["cams_lite"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80

@@ -1,0 +1,35 @@
+{
+  "mode": "mock",
+  "evidence": "[设计/假设]",
+  "note": "Resampled synthetic benchmark; NOT the preregistered live H1.",
+  "samples": 10000,
+  "seed": 7,
+  "logprob_threshold": 0.9,
+  "methods": {
+    "no_audit": {
+      "n": 10000.0,
+      "coverage": 1.0,
+      "accuracy": 0.137,
+      "hallucination_rate": 0.863,
+      "determined_error_rate": 0.863,
+      "unnecessary_abstention_rate": 0.0
+    },
+    "logprob_gate": {
+      "n": 10000.0,
+      "coverage": 0.863,
+      "accuracy": 0.0,
+      "hallucination_rate": 1.0,
+      "determined_error_rate": 0.863,
+      "unnecessary_abstention_rate": 0.137
+    },
+    "cams_lite": {
+      "n": 10000.0,
+      "coverage": 0.2782,
+      "accuracy": 0.8588,
+      "hallucination_rate": 0.507548526240115,
+      "determined_error_rate": 0.1412,
+      "unnecessary_abstention_rate": 0.0
+    }
+  },
+  "h1_status": "[TBD] live receipts and provider budget required"
+}
