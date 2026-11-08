@@ -541,7 +541,7 @@ H(z_before) == H(z_after)
 ```text
 ΔV = [ΔV1 单位算力结构增量, ΔV2 契约可验证性, ΔV3 模式区分度]
 ```
-并说明是否有一个目标被牺牲、牺牲量多少。若三者都不劣于其他候选，记入 Pareto；若不存在三目标均不劣的解，必须写明系统性牺牲了哪个目标及原因。
+并说明是否有一个目标被牺牲、牺牲量多少。若三者都不劣于其他候选，**只有在同一组实测指标下**才记入 Pareto；当前 rubric 分数不记入，避免“祖先分数高于当前”的假矛盾。若不存在三目标均不劣的解，必须写明系统性牺牲了哪个目标及原因。
 
 - `V1 = ROI_struct`（修订事件/GPU-hour，按 `A-noAmort` 归一）。
 - `V2 = contract_probe_accuracy × (1 - adapter_cost_ratio)`；`adapter_cost_ratio = adapter_cost_gpu_h / total_gpu_h`。
@@ -1062,7 +1062,7 @@ L3 全局组（固定 n=8 个 (μ_z,Σ_z)）
 3. **ΔV2 契约可验证性**：外部脚本只读 `contract` 的三态准确率变化，与适配器边际成本；
 4. **ΔV3 模式区分度**：`z_sep` 与 `relation_consistency` 的变化；
 5. **是否牺牲一个目标**：若三目标不能同时不劣，必须写明牺牲了哪个、牺牲量多少、为什么可接受；
-6. **Pareto 检查**：若候选在三个目标上都不劣于其他候选，记入非支配档案。
+6. **Pareto 检查**：只有在同一组实测指标下、三个目标都不劣于其他候选，才记入非支配档案；当前 rubric 分数不记。
 
 - `V1 = ROI_struct`；`V2 = contract_probe_accuracy × (1 - adapter_cost_ratio)`；`V3 = z_sep × relation_consistency`。
 - **O10 抽样**：Round 1–15 强制 100%（升级一→升级三→升级二）；Round 16–300 10%、301–900 10%、901–1500 10%、1501–2000 20%。
