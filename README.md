@@ -10,14 +10,15 @@ This repository contains the **CAMS / CFP research document only**. It does not 
 - [`Causal-Anchored Metacognitive Society, CAMS.md`](<Causal-Anchored Metacognitive Society, CAMS.md>) — the complete scheme:
   - `x·1=y → y·n=z → z·n=脑`: three-layer convergent functional partitioning;
   - H1–H4: evidence fingerprint with non-symbol leaf, always-on covariance (not discrete abstention), precision-only top-down, provenance;
-  - F1′–F8′ falsification conditions against budget-matched baselines;
-  - a 10⁴–10⁵ minimal experiment with evidence weakening, top-down temptation, and delayed evidence.
+  - v4.2 three-objective upgrade: amortized initialization + short correction; versioned refusal contract for `⊥`; sparse orthogonalization + relational constraint satisfaction;
+  - F1′–F11′ falsification conditions against budget-matched baselines, including `A-noAmort`, `A-contract-raw`, and `A-noOrth`;
+  - a 10⁴–10⁵ minimal experiment with evidence weakening, top-down temptation, delayed evidence, contract probing, and compute/accuracy ablations.
 
 - [`CAMS-通俗解释.md`](CAMS-通俗解释.md) — a plain-language explanation for non-specialists.
 
 ## Status
 
-**CAMS / CFP v4.1** — documentation-level state after the Round 1–20 fracture-repair rewrite. The document reports its own iteration state, Pareto archive, F6 score, fracture-repair status table, and unresolved hallucination leak paths. These are design-level bookkeeping, not experimental evidence.
+**CAMS / CFP v4.2** — documentation-level state after the Round 1–15 three-objective rewrite. The document reports its own iteration state, Pareto archive, F6 score, three-objective vector `V=[V1,V2,V3]`, contract/orthogonality/compute status tables, and unresolved hallucination leak paths. These are design-level bookkeeping, not experimental evidence: no 10⁴ run, no external contract probe, and no `A-noAmort`/`A-noOrth` result exists yet.
 
 ## Scope
 
