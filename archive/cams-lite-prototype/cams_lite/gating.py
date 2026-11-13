@@ -95,7 +95,7 @@ def coverage_gate(
     elif any(reason == "OUT_OF_SCOPE" for reason in reasons):
         reason_code = "OUT_OF_SCOPE"
     elif covariance > cfg.tau_cov:
-        reason_code = "MEASUREMENT_FAILURE"
+        reason_code = "INSUFFICIENT_EVIDENCE"
     elif reasons or coverage < cfg.min_coverage:
         reason_code = "INSUFFICIENT_EVIDENCE"
     else:

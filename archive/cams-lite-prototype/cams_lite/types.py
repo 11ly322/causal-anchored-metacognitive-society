@@ -69,7 +69,7 @@ class Evidence:
 
     def checksum_ok(self) -> bool:
         if not self.checksum:
-            return True
+            return False
         return self.checksum == self.computed_checksum()
 
     def to_dict(self) -> dict[str, Any]:
