@@ -50,10 +50,10 @@ python demo/run.py --trace traces/accept.json
 ```
 
 - 只依赖 Python 标准库；不联网，不装包。
-- 3 条黄金轨迹：`accept`、`MEASUREMENT_FAILURE`、`INSUFFICIENT_EVIDENCE`。
-- 4 个失败 demo：篡改 `stdout_hash`、重放 `nonce`、空 checksum、无工具降级。
+- 目标形态：3 条黄金轨迹（`accept`、`MEASUREMENT_FAILURE`、`INSUFFICIENT_EVIDENCE`）和 4 个失败 demo（篡改 `stdout_hash`、重放 `nonce`、空 checksum、无工具降级）。
+- 当前已实现 `accept` 一条；其余 6 条在 Day 5 生成。
 
-**当前状态：仓库骨架。** `spec/`、`demo/`、`traces/` 在 Day 3–5 生成；在它们完成前，上面的命令不会成功。[待定]
+**当前状态（Day 4）：** `python demo/run.py --trace traces/accept.json` 离线返回 `accept`，退出码 0；契约字段见 `spec/GATE.md`。[待定]
 
 ## 仓库地图
 
