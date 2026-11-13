@@ -59,7 +59,8 @@ python demo/run.py --trace traces/accept.json
 
 ```text
 README.md                 本页
-spec/RECEIPT.md           回执 schema、信任根、重放/新鲜度
+spec/RECEIPT.md           回执契约、信任根、重放/新鲜度
+spec/receipt.schema.json  可直接实现的 JSON schema
 spec/GATE.md              accept / MEASUREMENT_FAILURE / INSUFFICIENT_EVIDENCE
 demo/run.py               离线 demo，stdlib only
 traces/                   黄金轨迹 + 失败轨迹
