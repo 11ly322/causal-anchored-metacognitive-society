@@ -43,7 +43,7 @@ tool call
 
 ## 怎么跑
 
-目标命令：
+命令：
 
 ```bash
 python demo/run.py --trace traces/accept.json
@@ -53,7 +53,7 @@ python demo/run.py --trace traces/accept.json
 - 7 条轨迹已落盘：3 条黄金（accept / measurement / insufficient）+ 4 个失败（篡改 stdout_hash、重放 nonce、空 checksum、无工具降级）。
 - 全部返回预期结果；当前是 fixture clock + HMAC demo key，不是 live 安全证明。
 
-**当前状态（Day 6）：** 7 条轨迹均通过；契约字段见 `spec/GATE.md`。公共面：PR #1（draft，未合并）与 issues #2–#4；`HYPOTHESES.md`、`OPEN.md` 已补。
+**当前状态（Day 7，终检）：** 7 条轨迹均通过；新克隆可离线复现；契约字段见 `spec/GATE.md`。公共面：PR #1（draft，未合并）与 issues #2–#4；验收结果与七天清单位于 [`CHECKLIST.md`](CHECKLIST.md)。
 
 | trace | 预期 |
 |---|---|
@@ -76,6 +76,7 @@ demo/run.py               离线 demo，stdlib only
 traces/                   黄金轨迹 + 失败轨迹
 HYPOTHESES.md             H1–H4 与 falsifier
 OPEN.md                   还不知道什么
+CHECKLIST.md              七天清单与终检记录
 archive/                  旧设计、旧原型、旧理论（非当前承诺）
 ```
 

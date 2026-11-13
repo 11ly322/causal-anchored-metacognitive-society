@@ -115,6 +115,6 @@ gate 返回给外部 agent 的对象必须自足；外部脚本不得读取 gate
 - [x] `traces/fail-replay-nonce.json` → `MEASUREMENT_FAILURE` / `REPLAY`。
 - [x] `traces/fail-empty-checksum.json` → `MEASUREMENT_FAILURE` / `SCHEMA`。
 - [x] `traces/fail-no-tool.json` → `MEASUREMENT_FAILURE` / `NO_RECEIPT`（`tool_required=true` 时）。
-- [ ] 外部脚本只读 contract 能区分三态（Day 6）。
+- [ ] 外部脚本只读 contract 能区分三态（见 issue #3；H2 仍为 `[设计]`）。
 
 没有 live 运行前，以上是本地 fixture 验收，不是 live 实测。[待定]
