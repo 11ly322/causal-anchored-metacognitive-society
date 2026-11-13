@@ -46,10 +46,12 @@ tool call
 命令：
 
 ```bash
+python demo/minimal.py
 python demo/run.py --trace traces/accept.json
 ```
 
-- 只依赖 Python 标准库；不联网，不装包。
+- `demo/minimal.py` 只用固定本地输出做精确匹配，再展示 stdout 哈希和 accept contract；不验证签名、新鲜度或重放，不是安全证明。
+- `demo/run.py` 是完整的离线 fixture gate 演示；只依赖 Python 标准库，不联网，不装包。
 - 7 条轨迹已落盘：3 条黄金（accept / measurement / insufficient）+ 4 个失败（篡改 stdout_hash、重放 nonce、空 checksum、无工具降级）。
 - 全部返回预期结果；当前是 fixture clock + HMAC demo key，不是 live 安全证明。
 
@@ -73,6 +75,7 @@ spec/RECEIPT.md           回执契约、信任根、重放/新鲜度
 spec/receipt.schema.json  可直接实现的 JSON schema
 spec/GATE.md              accept / MEASUREMENT_FAILURE / INSUFFICIENT_EVIDENCE
 demo/run.py               离线 demo，stdlib only
+demo/minimal.py           单路径教学 demo；不验证回执
 traces/                   黄金轨迹 + 失败轨迹
 HYPOTHESES.md             H1–H4 与 falsifier
 OPEN.md                   还不知道什么
