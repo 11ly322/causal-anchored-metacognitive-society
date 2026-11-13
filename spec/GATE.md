@@ -108,12 +108,13 @@ gate 返回给外部 agent 的对象必须自足；外部脚本不得读取 gate
 
 ## 9. 验收
 
-- [ ] `python demo/run.py --trace traces/accept.json` 返回 `accept`，退出码 0。
-- [ ] 篡改 stdout → `MEASUREMENT_FAILURE` / `INTEGRITY`。
-- [ ] 改动签名 → `MEASUREMENT_FAILURE` / `SIGNATURE`。
-- [ ] 同一 nonce 第二次 → `MEASUREMENT_FAILURE` / `REPLAY`。
-- [ ] 空 checksum/hash → `MEASUREMENT_FAILURE` / `SCHEMA`。
-- [ ] 无工具 → `MEASUREMENT_FAILURE` / `NO_RECEIPT`（`tool_required=true` 时）。
-- [ ] 外部脚本只读 contract 能区分三态。
+- [x] `python demo/run.py --trace traces/accept.json` 返回 `accept`，退出码 0。
+- [x] `traces/measurement.json` → `MEASUREMENT_FAILURE` / `STALE`。
+- [x] `traces/insufficient.json` → `INSUFFICIENT_EVIDENCE` / `LOW_COVERAGE`。
+- [x] `traces/fail-tampered-stdout-hash.json` → `MEASUREMENT_FAILURE` / `INTEGRITY`。
+- [x] `traces/fail-replay-nonce.json` → `MEASUREMENT_FAILURE` / `REPLAY`。
+- [x] `traces/fail-empty-checksum.json` → `MEASUREMENT_FAILURE` / `SCHEMA`。
+- [x] `traces/fail-no-tool.json` → `MEASUREMENT_FAILURE` / `NO_RECEIPT`（`tool_required=true` 时）。
+- [ ] 外部脚本只读 contract 能区分三态（Day 6）。
 
-没有 live 运行前，以上是设计验收，不是实测。[待定]
+没有 live 运行前，以上是本地 fixture 验收，不是 live 实测。[待定]

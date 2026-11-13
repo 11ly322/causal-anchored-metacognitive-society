@@ -1,0 +1,64 @@
+{
+  "case": "fail-replay-nonce",
+  "fixture_now": "2026-11-13T16:00:00Z",
+  "tool": {
+    "tool_id": "shell.echo",
+    "args": [
+      "hello"
+    ],
+    "stdin": null,
+    "exit_code": 0,
+    "stdout": "hello\n"
+  },
+  "receipts": [
+    {
+      "receipt_id": "r-replay-1",
+      "tool_id": "shell.echo",
+      "exit_code": 0,
+      "stdout_hash": "sha256:5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+      "nonce": "44444444444444444444444444444444",
+      "timestamp": "2026-11-13T16:00:00Z",
+      "input_digest": "sha256:a69a9d90167c3d6950487af42e9c1bb0a6470d943ad9ba40ce961c37ca6b23c8",
+      "signature": "hmac-sha256:7a93d5b092a6293c52928cc27665db0a8ca9b7d99def148ee54a9e34fcbdd016"
+    },
+    {
+      "receipt_id": "r-replay-2",
+      "tool_id": "shell.echo",
+      "exit_code": 0,
+      "stdout_hash": "sha256:5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+      "nonce": "44444444444444444444444444444444",
+      "timestamp": "2026-11-13T16:00:00Z",
+      "input_digest": "sha256:a69a9d90167c3d6950487af42e9c1bb0a6470d943ad9ba40ce961c37ca6b23c8",
+      "signature": "hmac-sha256:4e1dd267a86b9fa85b99595a70215ab9576f4797c1ca13388cde2dc8de3062f3"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c1",
+      "text": "The echo tool returned hello.",
+      "evidence": [
+        "r-replay-1"
+      ],
+      "scope": "demo",
+      "required": true
+    }
+  ],
+  "policy": {
+    "min_coverage": 0.8,
+    "max_age_seconds": 300,
+    "future_skew_seconds": 60,
+    "tool_required": true,
+    "allowed_tools": [
+      "shell.echo"
+    ],
+    "allowed_scopes": [
+      "demo"
+    ],
+    "trust_domain": "demo",
+    "clock_mode": "fixture"
+  },
+  "expected": {
+    "decision": "MEASUREMENT_FAILURE",
+    "detail_code": "REPLAY"
+  }
+}

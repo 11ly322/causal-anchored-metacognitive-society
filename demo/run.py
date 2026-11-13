@@ -224,7 +224,11 @@ def gate(trace: dict[str, Any]) -> tuple[dict[str, Any], int]:
     tool = trace.get("tool", {})
     if not isinstance(tool, dict):
         raise TraceError("tool must be an object")
-    receipt = trace.get("receipt")
+    raw_receipts = trace.get("receipts")
+    if raw_receipts is None:
+        raw_receipts = [trace["receipt"]] if "receipt" in trace else []
+    if not isinstance(raw_receipts, list):
+        raise TraceError("receipts must be a list")
     claims = trace.get("claims")
     if not isinstance(claims, list) or not claims:
         raise TraceError("claims must be a non-empty list")
@@ -235,43 +239,45 @@ def gate(trace: dict[str, Any]) -> tuple[dict[str, Any], int]:
     verified: dict[str, dict[str, Any]] = {}
     verified_list: list[dict[str, Any]] = []
 
-    if receipt is None:
+    if not raw_receipts:
         decision = "MEASUREMENT_FAILURE"
         contract = make_contract(
             decision, decision, "NO_RECEIPT", 0.0, [], 0, "retry_tool"
         )
         return contract, 2
 
-    if not isinstance(receipt, dict):
-        raise TraceError("receipt must be an object")
-
-    ok, detail, message = verify_receipt(
-        receipt, tool, now, key, policy, seen_nonces, seen_ids
-    )
-    if not ok:
-        decision = "MEASUREMENT_FAILURE"
-        escalation = "human_review" if detail in {"SIGNATURE", "REPLAY"} else "retry_tool"
-        contract = make_contract(
-            decision, decision, detail, 0.0, [], 0, escalation
+    for receipt in raw_receipts:
+        if not isinstance(receipt, dict):
+            raise TraceError("receipt must be an object")
+        ok, detail, message = verify_receipt(
+            receipt, tool, now, key, policy, seen_nonces, seen_ids
         )
-        contract["message"] = message
-        return contract, 2
-
-    verified[receipt["receipt_id"]] = receipt
-    verified_list.append(receipt)
+        if not ok:
+            decision = "MEASUREMENT_FAILURE"
+            escalation = (
+                "human_review" if detail in {"SIGNATURE", "REPLAY"} else "retry_tool"
+            )
+            contract = make_contract(
+                decision, decision, detail, 0.0, [], 0, escalation
+            )
+            contract["message"] = message
+            return contract, 2
+        verified[receipt["receipt_id"]] = receipt
+        verified_list.append(receipt)
 
     allowed_tools = policy.get("allowed_tools", [])
-    if allowed_tools and receipt["tool_id"] not in allowed_tools:
-        contract = make_contract(
-            "MEASUREMENT_FAILURE",
-            "MEASUREMENT_FAILURE",
-            "TOOL_NOT_ALLOWED",
-            0.0,
-            [],
-            0,
-            "human_review",
-        )
-        return contract, 2
+    for receipt in verified_list:
+        if allowed_tools and receipt["tool_id"] not in allowed_tools:
+            contract = make_contract(
+                "MEASUREMENT_FAILURE",
+                "MEASUREMENT_FAILURE",
+                "TOOL_NOT_ALLOWED",
+                0.0,
+                [],
+                0,
+                "human_review",
+            )
+            return contract, 2
 
     allowed_scopes = set(policy.get("allowed_scopes", []))
     required_claims = [c for c in claims if isinstance(c, dict) and c.get("required", True)]

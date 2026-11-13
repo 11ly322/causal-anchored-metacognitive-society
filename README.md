@@ -50,10 +50,20 @@ python demo/run.py --trace traces/accept.json
 ```
 
 - 只依赖 Python 标准库；不联网，不装包。
-- 目标形态：3 条黄金轨迹（`accept`、`MEASUREMENT_FAILURE`、`INSUFFICIENT_EVIDENCE`）和 4 个失败 demo（篡改 `stdout_hash`、重放 `nonce`、空 checksum、无工具降级）。
-- 当前已实现 `accept` 一条；其余 6 条在 Day 5 生成。
+- 7 条轨迹已落盘：3 条黄金（accept / measurement / insufficient）+ 4 个失败（篡改 stdout_hash、重放 nonce、空 checksum、无工具降级）。
+- 全部返回预期结果；当前是 fixture clock + HMAC demo key，不是 live 安全证明。
 
-**当前状态（Day 4）：** `python demo/run.py --trace traces/accept.json` 离线返回 `accept`，退出码 0；契约字段见 `spec/GATE.md`。[待定]
+**当前状态（Day 5）：** 7 条轨迹均通过；契约字段见 `spec/GATE.md`。
+
+| trace | 预期 |
+|---|---|
+| `traces/accept.json` | accept |
+| `traces/measurement.json` | MEASUREMENT_FAILURE / STALE |
+| `traces/insufficient.json` | INSUFFICIENT_EVIDENCE / LOW_COVERAGE |
+| `traces/fail-tampered-stdout-hash.json` | MEASUREMENT_FAILURE / INTEGRITY |
+| `traces/fail-replay-nonce.json` | MEASUREMENT_FAILURE / REPLAY |
+| `traces/fail-empty-checksum.json` | MEASUREMENT_FAILURE / SCHEMA |
+| `traces/fail-no-tool.json` | MEASUREMENT_FAILURE / NO_RECEIPT |
 
 ## 仓库地图
 
