@@ -53,7 +53,7 @@ python demo/run.py --trace traces/accept.json
 - 7 条轨迹已落盘：3 条黄金（accept / measurement / insufficient）+ 4 个失败（篡改 stdout_hash、重放 nonce、空 checksum、无工具降级）。
 - 全部返回预期结果；当前是 fixture clock + HMAC demo key，不是 live 安全证明。
 
-**当前状态（Day 5）：** 7 条轨迹均通过；契约字段见 `spec/GATE.md`。
+**当前状态（Day 6）：** 7 条轨迹均通过；契约字段见 `spec/GATE.md`。公共面：PR #1（draft，未合并）与 issues #2–#4；`HYPOTHESES.md`、`OPEN.md` 已补。
 
 | trace | 预期 |
 |---|---|
