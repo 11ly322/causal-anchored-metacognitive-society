@@ -18,8 +18,9 @@
 ## H2
 
 - 验收入口：[spec/GATE.md](spec/GATE.md) 的三态定义。
-- 当前 demo 输出 contract，但还没有独立的 contract-only 探针；见 issue #3。
-- 通过标准：探针只读 `decision`、`reason_code`、`detail_code` 和一个 provenance 计数。
+- `demo/consume_contract.py` 已实现独立的 contract-only 探针；只读 `decision`、`reason_code`、`detail_code` 和 `provenance_summary.verified_leaves`。
+- `python tools/check_contract_consumer.py` 已核对七份实际 demo 输出、四字段投影与异常输入；消费者在没有验证器和 trace 的独立目录中运行。[合成]
+- H2 的离线接口验收已通过。真实框架消费者的可靠性、版本兼容与生产效度仍为 `[待定]`；这不是 H1 的证据。
 
 ## H3
 

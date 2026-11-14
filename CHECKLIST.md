@@ -49,7 +49,7 @@
 ## 4. 还缺什么
 
 - **#2 跨进程重放**：当前 nonce 只在单进程内去重；两次独立调用不会互相拒绝。
-- **#3 contract-only 探针**：`spec/GATE.md` §5 的三态可分离性还没有独立消费者脚本；H2 仍是 `[设计]`。
+- **#3 contract-only 探针**：后续已新增 `demo/consume_contract.py`；`python tools/check_contract_consumer.py` 的七份真实 demo 输出、独立目录运行、四字段投影与异常输入检查通过。[合成] H2 的离线接口验收完成，真实框架接入和生产效度仍待检验。
 - **#4 Ed25519 与密钥生命周期**：demo 只有 HMAC；没有 key id、轮换、吊销。
 - **H1 / H4 没有 live 数据**：没有真实工具回执，也没有真实调用方延迟预算。
 - **PR #1 保持 draft**：本计划不合并 `main`，不改仓库名，不做 force-push。

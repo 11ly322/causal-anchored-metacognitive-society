@@ -115,6 +115,9 @@ gate 返回给外部 agent 的对象必须自足；外部脚本不得读取 gate
 - [x] `traces/fail-replay-nonce.json` → `MEASUREMENT_FAILURE` / `REPLAY`。
 - [x] `traces/fail-empty-checksum.json` → `MEASUREMENT_FAILURE` / `SCHEMA`。
 - [x] `traces/fail-no-tool.json` → `MEASUREMENT_FAILURE` / `NO_RECEIPT`（`tool_required=true` 时）。
-- [ ] 外部脚本只读 contract 能区分三态（见 issue #3；H2 仍为 `[设计]`）。
+- [x] 独立消费者 `demo/consume_contract.py` 只读 `decision`、`reason_code`、`detail_code` 和 `provenance_summary.verified_leaves`，输出 `accept` / `measurement` / `insufficient`。[合成]
+- [x] `python tools/check_contract_consumer.py` 验证七份实际 demo 输出；消费者复制到独立临时目录，以隔离 Python 运行，不导入 gate 或访问 trace。
+
+消费者是 v0 的四字段投影读取器，不验证完整 schema 或版本，也不重新验证证据。字段缺失、矛盾或输入无效时不输出分类，退出 `1`；三种有效分类都退出 `0`，调用方必须读取输出的 `state`。H2 的离线接口验收已通过，真实调用方和生产效度仍待检验。
 
 没有 live 运行前，以上是本地 fixture 验收，不是 live 实测。[待定]

@@ -91,6 +91,8 @@ spec/receipt.schema.json  可直接实现的 JSON schema
 spec/GATE.md              accept / MEASUREMENT_FAILURE / INSUFFICIENT_EVIDENCE
 demo/run.py               离线 demo，stdlib only
 demo/minimal.py           单路径教学 demo；不验证回执
+demo/consume_contract.py  独立 contract-only 三态消费者
+tools/check_contract_consumer.py  消费者离线验收
 traces/                   黄金轨迹 + 失败轨迹
 HYPOTHESES.md             H1–H4 与 falsifier
 OPEN.md                   还不知道什么
@@ -108,6 +110,26 @@ archive/                  旧设计、旧原型、旧理论（非当前承诺）
 没有 `[实测]` 标签；当前没有 live 数据。
 
 ## 接走方式
+
+独立消费者只依赖 Python 标准库，读取 contract JSON；不导入 gate、不读取 trace、不检查回执签名，也不调用模型。
+
+```bash
+python demo/run.py --trace traces/accept.json | python demo/consume_contract.py
+python demo/consume_contract.py --contract contract.json
+python tools/check_contract_consumer.py
+```
+
+第二条命令读取调用方保存的 contract 文件；省略 `--contract` 或使用 `--contract -` 时读取标准输入。输出示例：
+
+```json
+{"state": "accept", "reason_code": "NO_RISK", "detail_code": null, "verified_leaves": 1}
+```
+
+`state` 为 `accept` / `measurement` / `insufficient`。三种有效分类都退出 `0`；输入缺失、矛盾、格式错误或超过 1 MiB 时退出 `1`，只写 stderr，不输出分类。命令参数错误退出 `2`。**退出 `0` 仅表示消费者成功读取契约；调用方必须检查 `state`，不能把退出码当作 gate 的接受结果。** gate 自身的退出码仍是 `0/2/3/4`，管道只显示消费者的退出码，除非 shell 启用其他管道检查。
+
+消费者按 v0 约定只使用 `decision`、`reason_code`、`detail_code` 与 `provenance_summary.verified_leaves`；支持 UTF-8（可带 BOM）文件。它只验证这四个字段的投影，不验证整个 contract schema、版本或来源可信性；真实调用方仍需确定可信的 producer。[设计]
+
+验证将消费者单独复制到临时目录，在隔离 Python 中运行；七份真实 demo 输出、文件/标准输入、仅四字段投影及无效输入检查均通过。[合成] 这覆盖 H2 的离线接口验收，不是生产效度或 H1 证据。
 
 对外只承诺一个窄接口：
 

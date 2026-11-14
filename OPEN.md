@@ -8,11 +8,11 @@
 - 要关闭：持久 nonce/receipt-id 存储，带 TTL、原子插入、并发语义；单节点不依赖第三方服务。
 - 验收：两次独立 `demo/run.py` 调用，第二次返回 `REPLAY`。
 
-## 2. Contract-only 三态探针（issue #3）
+## 2. Contract-only 三态探针（issue #3，离线验收完成）
 
-- 现状：contract 字段已定义，demo 也输出 contract；还没有独立的消费者脚本。
-- 要关闭：一个只读 contract JSON 的探针，能区分 accept / measurement / insufficient；不得读内部协方差或 logprob。
-- 验收：三份 contract 输入，三态全对；探针代码不 import `demo.run` 的内部验证函数。
+- 现状：`demo/consume_contract.py` 仅使用 contract 的三种公开判定字段与一个 provenance 计数；输出 `accept` / `measurement` / `insufficient`。无 gate 导入、无模型内部信息依赖。[设计]
+- 已验证：`python tools/check_contract_consumer.py` 将消费者复制到独立目录，在隔离 Python 中核对七份实际 demo 输出、标准输入/文件等价、四字段投影、无效输入拒绝。[合成]
+- 尚未覆盖：真实框架接入与生产契约演进。离线三态分类通过不证明 producer 可信，也不改变 H1 的待检验状态。GitHub issue 的关闭由维护者决定。
 
 ## 3. Ed25519 与密钥生命周期（issue #4）
 

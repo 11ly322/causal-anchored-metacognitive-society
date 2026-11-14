@@ -29,6 +29,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check contract-only consumer
+        run: python tools/check_contract_consumer.py
       - name: Check exporter fidelity and source boundaries
         run: python tools/check_site.py
       - name: Export and verify all seven offline fixtures
