@@ -1,0 +1,47 @@
+{
+  "id": "T030",
+  "category": "minority_evidence",
+  "split": "dev",
+  "prompt": "Synthetic audit task 030: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "tool",
+      "status": "ok",
+      "payload": "{\"task\": \"030\", \"category\": \"minority_evidence\", \"value\": 30}",
+      "checksum": "sha256:95a8fd09f0cd90581ef65dc40f045b25d0e9aebaf680b98aadf9bd6db325471c",
+      "valid": true,
+      "scope": "in",
+      "non_text": true
+    },
+    {
+      "id": "r2",
+      "tool": "tool",
+      "status": "ok",
+      "payload": "{\"task\": \"030\", \"minority\": \"answer-minority_evidence-030\"}",
+      "checksum": "sha256:f775e1613137c3a04fa731571ba231378be46b2e4fea41ec7186b015dcf6b4d8",
+      "valid": true,
+      "scope": "in",
+      "non_text": false
+    }
+  ],
+  "candidate": {
+    "answer": "wrong-minority_evidence-030",
+    "confidence": 0.9,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "wrong-minority_evidence-030",
+        "supports": [
+          "r1"
+        ],
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-minority_evidence-030",
+    "expected": "accept"
+  },
+  "checker": "minority_evidence"
+}

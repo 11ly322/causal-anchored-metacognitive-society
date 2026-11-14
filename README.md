@@ -1,60 +1,147 @@
-# CAMS / CFP v5.0
+# agent-audit-kernel
 
-**本仓库是研究设计文档，不是实现或完成实验。**  
-它提出三层收敛分区与 H1–H4 约束，用可复算证伪实验检验“可审计理解”；不主张已达到或可替代通用大模型。
+一个可离线运行的审计原语：**工具回执 + 覆盖率门控 + 可依赖的拒绝契约**。
 
-**证据图例**  
-`[设计]` 预注册选择/阈值，不是结果；`[假设]` 待检验估计；`[实测]` 有可复算数据——**当前无 `[实测]`**。未标 `[实测]` 的数字不得当结果引用。
+它不是通用模型，不是三层认知架构，也不是已验证的产品。当前是一个可评审、可离线复现的最小原型；没有 live 结果。
 
-## 一句话定位
+## 赌注
 
-面向“错误代价高、需要审计”的 Agent 的结构化研究提案，不与通用大模型比能力；核心不是更大的模型，而是证据指纹、始终产生的协方差、非符号溯源叶，以及可被外部依赖的拒绝契约。
+在错误代价高、需要审计的窄场景里，**门控外部工具回执**比**让模型自报置信度**更可靠。[假设]
 
-## 30 分钟阅读路径
+外部回执提供可验证字段：工具 ID、退出码、stdout 哈希、输入摘要、nonce、时间戳、签名。在可信根下，模型不能单独伪造这些字段；demo 的 HMAC 只演示绑定。门控只决定三件事：
 
-1. 本页 + [`docs/FALSIFICATION.md`](docs/FALSIFICATION.md)：什么结果算失败。
-2. [`docs/EXPERIMENT-10K.md`](docs/EXPERIMENT-10K.md)：2–4 周、单人可跑的 10³ kill test。
-3. [`docs/RELATED-WORK.md`](docs/RELATED-WORK.md)：与 selective prediction/conformal/calibration/RAG attribution/C2PA/debate 的差异。
-4. [`Causal-Anchored Metacognitive Society, CAMS.md`](<Causal-Anchored Metacognitive Society, CAMS.md>)：完整方案（含假设、失败哈希、legacy 说明）。
-5. [`docs/ROADMAP.md`](docs/ROADMAP.md)：G0→G3 的 go/no-go。
-6. [`CAMS-通俗解释.md`](CAMS-通俗解释.md)：非专业读者版。
+- `accept`：回执完整且覆盖足够；
+- `MEASUREMENT_FAILURE`：工具或回执本身坏了；
+- `INSUFFICIENT_EVIDENCE`：回执有效，但不足以支持结论。
 
-## 文件树
+关键不是多一个分类器，而是让“拒绝”变成外部 agent 可以依赖的结构化返回值。
+
+## 不声称什么
+
+- 不声称已证明该赌注；这是待检验假设，不是结果。[待定]
+- 不声称“不可伪造”；只声称在可信根下可防篡改，且 demo 级 HMAC 仅用于演示。[设计]
+- 不声称能替代通用大模型、通用对齐或安全审计。
+- 不声称归档里的 pytest 覆盖率、合成 bench 或 mock 10k 是效度证据。[合成]
+- 不声称能处理真实生产流量；没有 nonce 存储、密钥轮换、时钟同步和撤销机制。
+
+## 最小数据流
 
 ```text
-.
-├── README.md
-├── Causal-Anchored Metacognitive Society, CAMS.md   # 主文档 v5.0
-├── CAMS-通俗解释.md
-├── LICENSE
-└── docs/
-    ├── FALSIFICATION.md
-    ├── EXPERIMENT-10K.md
-    ├── RELATED-WORK.md
-    └── ROADMAP.md
+tool call
+  -> receipt {receipt_id, tool_id, exit_code, stdout_hash,
+              nonce, timestamp, signature, input_digest}
+  -> verifier (trust root)
+  -> gate (coverage + integrity + freshness)
+  -> accept | MEASUREMENT_FAILURE | INSUFFICIENT_EVIDENCE
+  -> contract {reason_code, evidence_coverage,
+               provenance_summary, escalation_path}
 ```
 
-## v5.0 改了什么
+- 回执是证据，不是模型自述。
+- 门控只消费回执和声明，不消费模型内部置信度。
+- 契约是给下一个 agent 的返回值，不是日志注解。
 
-- 新增 `docs/FALSIFICATION.md`：F1′–F8′ 逐条改为可执行判据表（指标/阈值/检验/样本量/通过失败/实验编号）；F9′–F11′ 单列。
-- 新增 `docs/EXPERIMENT-10K.md`：10³ kill test；`x_ns` 操作化为 tool execution receipt；5 个基线；停止规则、预算、失败模式。
-- 新增 `docs/RELATED-WORK.md`：差异表 + “为什么 `A-skeleton` 不能复现 EGT”的 7 条可检验推论。
-- 新增 `docs/ROADMAP.md`：G0→G3；每阶段交付物、go/no-go、预算、风险。
-- 主文档：删除历史 Pareto 祖先表（旧 rubric 分数不可比）；F1–F6 降级为“设计自检清单”；补符号表与数字来源约定；“政治管理”降为一个应用场景。
-- 不再使用无实测支撑的排名式表述。
+## 怎么跑
 
-## 当前状态（诚实版）
+命令：
 
-- **v5.0 是文档级评审版**：没有 10³/10⁴/10⁵ 运行，没有外部契约脚本，没有 `A-noAmort`/`A-noOrth`/`A-skeleton` 的实测。
-- 主文档里的 F6=0.80、V=[0.82,0.78,0.84]、Pareto/failure 记录均为**设计自检/rubric**；不是实验结果，不能作为“已理解/已收敛”的证据。
-- 100B 只是**合同覆盖上限**，不是 100B 份独立权重；10⁴ 不承重时，100B 不会改变性质。
-- §12 仍列 7 条泄漏路径；它们没有被“结构约束”消灭，只是被定位到接口。
+```bash
+python demo/minimal.py
+python demo/run.py --trace traces/accept.json
+```
 
-## 审稿人最该看的三个问题
+- `demo/minimal.py` 只用固定本地输出做精确匹配，再展示 stdout 哈希和 accept contract；不验证签名、新鲜度或重放，不是安全证明。
+- `demo/run.py` 是完整的离线 fixture gate 演示；只依赖 Python 标准库，不联网，不装包。
+- 7 条轨迹已落盘：3 条黄金（accept / measurement / insufficient）+ 4 个失败（篡改 stdout_hash、重放 nonce、空 checksum、无工具降级）。
+- 全部返回预期结果；当前是 fixture clock + HMAC demo key，不是 live 安全证明。
 
-1. **F1′**：`A-skeleton` 能不能复现 EGT？能，则结构不承重，停止。
-2. **10³**：`T_π` 在同等预算下是否显著高于骨架，且 `D_π`/溯源/模式分离同向？不能，则不扩 10⁴。
-3. **F10′**：外部脚本能否只读 `contract` 区分三态？不能，则“商业可验证”只是内部说法。
+**当前状态（Day 7，终检）：** 7 条轨迹均通过；新克隆可离线复现；契约字段见 `spec/GATE.md`。公共面：PR #1（draft，未合并）与 issues #2–#4；验收结果与七天清单位于 [`CHECKLIST.md`](CHECKLIST.md)。
+
+| trace | 预期 |
+|---|---|
+| `traces/accept.json` | accept |
+| `traces/measurement.json` | MEASUREMENT_FAILURE / STALE |
+| `traces/insufficient.json` | INSUFFICIENT_EVIDENCE / LOW_COVERAGE |
+| `traces/fail-tampered-stdout-hash.json` | MEASUREMENT_FAILURE / INTEGRITY |
+| `traces/fail-replay-nonce.json` | MEASUREMENT_FAILURE / REPLAY |
+| `traces/fail-empty-checksum.json` | MEASUREMENT_FAILURE / SCHEMA |
+| `traces/fail-no-tool.json` | MEASUREMENT_FAILURE / NO_RECEIPT |
+
+## 可视化导览
+
+站点地址：[六步导览与七个离线样例](https://11ly322.github.io/causal-anchored-metacognitive-society/)。页面展示构建时实际运行 `demo/run.py` 的结果，保留原始输入、完整 stdout / stderr、退出码、契约与来源摘要；浏览器只负责展示记录。
+
+本地构建与预览（Python 3.12+，标准库）：
+
+```bash
+python tools/build_site.py
+python -m http.server 8000 --directory _site
+```
+
+然后打开 `http://localhost:8000/`。构建会逐条核对七个预期结果，失败即停止；本地环境变量 `CAMS_DEMO_HMAC_KEY` 不会影响公开 fixture 的复现。产物只包含页面资源和七个公开样例，源代码位于 `site/`，产物位于已忽略的 `_site/`。
+
+这是固定时钟下的离线教学记录，没有线上实测；公开 HMAC demo key 不能证明可信来源，重放检查仅在单次 verifier 调用内生效。站点不证明工具输出的世界真实性、生产安全、模型理解或 H1/H2。Pages 仅允许从 `feat/cams-lite-audit` 发布，不依赖合并 PR #1。
+
+## 仓库地图
+
+```text
+README.md                 本页
+spec/RECEIPT.md           回执契约、信任根、重放/新鲜度
+spec/receipt.schema.json  可直接实现的 JSON schema
+spec/GATE.md              accept / MEASUREMENT_FAILURE / INSUFFICIENT_EVIDENCE
+demo/run.py               离线 demo，stdlib only
+demo/minimal.py           单路径教学 demo；不验证回执
+demo/consume_contract.py  独立 contract-only 三态消费者
+tools/check_contract_consumer.py  消费者离线验收
+traces/                   黄金轨迹 + 失败轨迹
+HYPOTHESES.md             H1–H4 与 falsifier
+OPEN.md                   还不知道什么
+CHECKLIST.md              七天清单与终检记录
+archive/                  旧设计、旧原型、旧理论（非当前承诺）
+```
+
+## 证据标签
+
+- `[设计]`：预注册的设计选择或阈值，不是结果。
+- `[假设]`：待检验判断。
+- `[待定]`：尚无数据或实现。
+- `[合成]`：合成数据/mock，只用于演示，不是效度。
+
+没有 `[实测]` 标签；当前没有 live 数据。
+
+## 接走方式
+
+独立消费者只依赖 Python 标准库，读取 contract JSON；不导入 gate、不读取 trace、不检查回执签名，也不调用模型。
+
+```bash
+python demo/run.py --trace traces/accept.json | python demo/consume_contract.py
+python demo/consume_contract.py --contract contract.json
+python tools/check_contract_consumer.py
+```
+
+第二条命令读取调用方保存的 contract 文件；省略 `--contract` 或使用 `--contract -` 时读取标准输入。输出示例：
+
+```json
+{"state": "accept", "reason_code": "NO_RISK", "detail_code": null, "verified_leaves": 1}
+```
+
+`state` 为 `accept` / `measurement` / `insufficient`。三种有效分类都退出 `0`；输入缺失、矛盾、格式错误或超过 1 MiB 时退出 `1`，只写 stderr，不输出分类。命令参数错误退出 `2`。**退出 `0` 仅表示消费者成功读取契约；调用方必须检查 `state`，不能把退出码当作 gate 的接受结果。** gate 自身的退出码仍是 `0/2/3/4`，管道只显示消费者的退出码，除非 shell 启用其他管道检查。
+
+消费者按 v0 约定只使用 `decision`、`reason_code`、`detail_code` 与 `provenance_summary.verified_leaves`；支持 UTF-8（可带 BOM）文件。它只验证这四个字段的投影，不验证整个 contract schema、版本或来源可信性；真实调用方仍需确定可信的 producer。[设计]
+
+验证将消费者单独复制到临时目录，在隔离 Python 中运行；七份真实 demo 输出、文件/标准输入、仅四字段投影及无效输入检查均通过。[合成] 这覆盖 H2 的离线接口验收，不是生产效度或 H1 证据。
+
+对外只承诺一个窄接口：
+
+1. 调用方给工具回执与声明；
+2. kernel 返回一个 `contract`；
+3. 调用方只读 `contract` 就能区分“可接受 / 证据不足 / 测量失败”。
+
+如果调用方必须读内部协方差或模型置信度才能区分，这个接口就失败了。[设计]
+
+## 历史
+
+旧 CAMS v5.0 文档、审计层原型、bench、paper 和理论笔记都在 [`archive/`](archive/README.md)。它们保留用于溯源，不是当前 API，也不应作为结果引用。
 
 ## License
 

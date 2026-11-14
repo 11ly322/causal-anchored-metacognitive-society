@@ -1,0 +1,6 @@
+# Minimal config for the mock-first pilot.
+# No secrets, no API keys. Live mode is disabled in v0.
+samples: 10000
+seed: 7
+target_coverage: 0.80
+benchmark_split: test

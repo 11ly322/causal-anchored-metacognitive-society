@@ -1,0 +1,7 @@
+{
+  "id": "BAD-004",
+  "name": "stale_evidence",
+  "why_bad": "An old receipt is presented as current evidence; the contract has no freshness field.",
+  "expected_failure": "INSUFFICIENT_EVIDENCE",
+  "verdict": {"determined": true, "answer": "42", "reason_code": "NO_RISK", "coverage": 1.0}
+}

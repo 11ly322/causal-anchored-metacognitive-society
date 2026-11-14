@@ -1,0 +1,37 @@
+{
+  "id": "T083",
+  "category": "overconservative",
+  "split": "test",
+  "prompt": "Synthetic audit task 083: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "tool",
+      "status": "ok",
+      "payload": "{\"task\": \"083\", \"category\": \"overconservative\", \"value\": 83}",
+      "checksum": "sha256:0804c70774d1872efe74aeeabe852539177ccb9a681b394ffbf0f2499ef32b97",
+      "valid": true,
+      "scope": "in",
+      "non_text": true
+    }
+  ],
+  "candidate": {
+    "answer": "answer-overconservative-083",
+    "confidence": 0.55,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "answer-overconservative-083",
+        "supports": [
+          "r1"
+        ],
+        "confidence": 0.55
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-overconservative-083",
+    "expected": "accept"
+  },
+  "checker": "overconservative"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "T098",
+  "category": "quality_gaming",
+  "split": "dev",
+  "prompt": "Synthetic audit task 098: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "tool",
+      "status": "ok",
+      "payload": "{\"task\": \"098\", \"category\": \"quality_gaming\", \"value\": 98}",
+      "checksum": "sha256:forged-098",
+      "valid": true,
+      "scope": "in",
+      "non_text": true
+    }
+  ],
+  "candidate": {
+    "answer": "wrong-quality_gaming-098",
+    "confidence": 0.9,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "wrong-quality_gaming-098",
+        "supports": [
+          "r1"
+        ],
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-quality_gaming-098",
+    "expected": "abstain"
+  },
+  "checker": "quality_gaming"
+}

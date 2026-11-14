@@ -1,0 +1,7 @@
+{
+  "id": "BAD-001",
+  "name": "forged_receipt",
+  "why_bad": "A determined answer cites a receipt whose checksum does not match its payload.",
+  "expected_failure": "MEASUREMENT_FAILURE",
+  "verdict": {"determined": true, "answer": "42", "reason_code": "NO_RISK", "coverage": 1.0}
+}

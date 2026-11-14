@@ -1,0 +1,38 @@
+{
+  "id": "T027",
+  "category": "bad_reasoning",
+  "split": "test",
+  "prompt": "Synthetic audit task 027: decide whether the proposed answer is supported.",
+  "tool_receipts": [
+    {
+      "id": "r1",
+      "tool": "tool",
+      "status": "ok",
+      "payload": "{\"task\": \"027\", \"category\": \"bad_reasoning\", \"value\": 27}",
+      "checksum": "sha256:c9181c643d25cbd0d9778e2d8bd103de63d19999452298ea0c98e75cba423b08",
+      "valid": true,
+      "scope": "in",
+      "non_text": true
+    }
+  ],
+  "candidate": {
+    "answer": "wrong-bad_reasoning-027",
+    "confidence": 0.9,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "wrong-bad_reasoning-027",
+        "supports": [
+          "r1"
+        ],
+        "relation": "non_sequitur",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ground_truth": {
+    "answer": "answer-bad_reasoning-027",
+    "expected": "abstain"
+  },
+  "checker": "bad_reasoning"
+}

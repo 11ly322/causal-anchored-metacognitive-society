@@ -1,0 +1,43 @@
+{
+  "case": "fail-no-tool",
+  "fixture_now": "2026-11-13T16:00:00Z",
+  "tool": {
+    "tool_id": "shell.echo",
+    "args": [
+      "hello"
+    ],
+    "stdin": null,
+    "exit_code": 0,
+    "stdout": "hello\n"
+  },
+  "receipts": [],
+  "claims": [
+    {
+      "claim_id": "c1",
+      "text": "The echo tool returned hello.",
+      "evidence": [
+        "r-no-tool"
+      ],
+      "scope": "demo",
+      "required": true
+    }
+  ],
+  "policy": {
+    "min_coverage": 0.8,
+    "max_age_seconds": 300,
+    "future_skew_seconds": 60,
+    "tool_required": true,
+    "allowed_tools": [
+      "shell.echo"
+    ],
+    "allowed_scopes": [
+      "demo"
+    ],
+    "trust_domain": "demo",
+    "clock_mode": "fixture"
+  },
+  "expected": {
+    "decision": "MEASUREMENT_FAILURE",
+    "detail_code": "NO_RECEIPT"
+  }
+}
