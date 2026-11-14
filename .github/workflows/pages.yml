@@ -1,0 +1,53 @@
+name: Publish offline fixture walkthrough
+
+on:
+  push:
+    branches: [feat/cams-lite-audit]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-feat-cams-lite-audit
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require the authorized feature branch
+        shell: bash
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/feat/cams-lite-audit" ]; then
+            echo '::error::Pages publication is authorized only from feat/cams-lite-audit.'
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check exporter fidelity and source boundaries
+        run: python tools/check_site.py
+      - name: Export and verify all seven offline fixtures
+        run: python tools/build_site.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/feat/cams-lite-audit'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified static artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

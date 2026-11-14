@@ -8,3 +8,5 @@ htmlcov/
 .env
 bench/results/*.tmp
 experiments/results.live.json
+_site/
+.site-check/

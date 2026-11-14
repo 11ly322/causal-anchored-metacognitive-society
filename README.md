@@ -67,6 +67,21 @@ python demo/run.py --trace traces/accept.json
 | `traces/fail-empty-checksum.json` | MEASUREMENT_FAILURE / SCHEMA |
 | `traces/fail-no-tool.json` | MEASUREMENT_FAILURE / NO_RECEIPT |
 
+## 可视化导览
+
+站点地址：[六步导览与七个离线样例](https://11ly322.github.io/causal-anchored-metacognitive-society/)。页面展示构建时实际运行 `demo/run.py` 的结果，保留原始输入、完整 stdout / stderr、退出码、契约与来源摘要；浏览器只负责展示记录。
+
+本地构建与预览（Python 3.12+，标准库）：
+
+```bash
+python tools/build_site.py
+python -m http.server 8000 --directory _site
+```
+
+然后打开 `http://localhost:8000/`。构建会逐条核对七个预期结果，失败即停止；本地环境变量 `CAMS_DEMO_HMAC_KEY` 不会影响公开 fixture 的复现。产物只包含页面资源和七个公开样例，源代码位于 `site/`，产物位于已忽略的 `_site/`。
+
+这是固定时钟下的离线教学记录，没有线上实测；公开 HMAC demo key 不能证明可信来源，重放检查仅在单次 verifier 调用内生效。站点不证明工具输出的世界真实性、生产安全、模型理解或 H1/H2。Pages 仅允许从 `feat/cams-lite-audit` 发布，不依赖合并 PR #1。
+
 ## 仓库地图
 
 ```text
